@@ -18,6 +18,26 @@ This project is designed to help find the tier and badges of NBA Top Shot moment
 - Rookie Year
 - Championship Year
 
+## Setup on Emulator
+
+1. Deploy TopShotLocking, TopShot, TopShotTiers, TopShotBadges
+flow project deploy
+
+2. createSet (string)
+flow transactions send ./topshot/transactions/createSet.cdc "First Set!"
+
+3. createPlays
+flow transactions send ./topshot/transactions/createPlays.cdc
+
+4. mintMoments
+flow transactions send ./topshot/transactions/mintMoments.cdc
+
+5. getTier (setId, playId)
+flow scripts execute ./tiers/scripts/getTier.cdc 2 11
+
+6. getAllBadges (account)
+flow scripts execute ./badges/scripts/getAllBadges.cdc 0xf8d6e0586b0a20c7
+
 ## Set Tiers Reference
 
 1. Ultimate
@@ -179,3 +199,7 @@ This project is designed to help find the tier and badges of NBA Top Shot moment
 151. Ultimate
 152. Rare
 153. Legendary
+
+
+
+
