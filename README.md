@@ -1,22 +1,25 @@
 # TopShot Badges and Tiers
 
-This project is designed to help find the tier and badges of NBA Top Shot moments on-chain. The tier logic seems to work, although I am still testing. Half the badges are implemented. The project will be deployed to the mainnet when the other badges are supported.
+This project is designed to help find the tier and badges of NBA Top Shot moments on-chain. 
 
-## Badges In-Progress
+## Tiers Status
 
-- Rookie Premiere
-- Top Shot Debut
-- Challenge Reward
-- Crafting Challenge Reward
-- Leaderboard Reward
+Under review/testing. Will deploy to mainnet soon.
 
-## Badges Implemented
-
+## Badges Status
+The following are implemented:
 - Rookie Mint
 - Rookie of the Year
 - MVP Year
 - Rookie Year
 - Championship Year
+
+The following are in-progress:
+- Rookie Premiere
+- Top Shot Debut
+- Challenge Reward
+- Crafting Challenge Reward
+- Leaderboard Reward
 
 ## Setup on Emulator
 
