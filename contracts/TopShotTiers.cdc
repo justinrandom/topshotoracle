@@ -1,12 +1,11 @@
 pub contract TopShotTiers {
 
     pub enum Tier: UInt8 {
-        pub case unknown
-        pub case ultimate
-        pub case legendary
-        pub case rare
         pub case common
         pub case fandom
+        pub case rare
+        pub case legendary
+        pub case ultimate
     }
 
     // Define the mixed-tier sets with their play IDs and corresponding tiers
@@ -14,8 +13,14 @@ pub contract TopShotTiers {
     // Define default tiers based on set IDs
     pub var defaultTiers: {UInt64: Tier}
 
+    pub resource interface AdminPublic {
+        pub fun addOrUpdateMixedTierSet(setID: UInt64, playID: UInt64, tier: Tier)
+        pub fun addOrUpdateDefaultTier(setID: UInt64, tier: Tier)
+        pub fun removePlayIDFromMixedTierSet(setID: UInt64, playID: UInt64)
+    }
+
     // Resource to manage the tier mappings
-    pub resource Admin {
+    pub resource Admin: AdminPublic {
         pub fun addOrUpdateMixedTierSet(setID: UInt64, playID: UInt64, tier: Tier) {
             if let existingSet = TopShotTiers.mixedTierSets[setID] {
                 var updatedSet = existingSet
@@ -279,7 +284,7 @@ pub contract TopShotTiers {
         }
 
         self.account.save(<-create Admin(), to: /storage/TopShotTiersAdmin)
-        self.account.link<&Admin>(/public/TopShotTiersAdmin, target: /storage/TopShotTiersAdmin)
+        self.account.link<&Admin{AdminPublic}>(/public/TopShotTiersAdmin, target: /storage/TopShotTiersAdmin)
     }
 
     pub fun tierToString(tier: Tier): String {

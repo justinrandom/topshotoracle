@@ -1,6 +1,6 @@
 import TopShotTiers from 0xf8d6e0586b0a20c7
 
-transaction(setID: UInt64, tier: String) {
+transaction(setID: UInt64, tierRawValue: UInt8) {
     let adminRef: &TopShotTiers.Admin
 
     prepare(signer: AuthAccount) {
@@ -9,7 +9,8 @@ transaction(setID: UInt64, tier: String) {
     }
 
     execute {
-        self.adminRef.addOrUpdateDefaultTier(setID: setID, tier: tier)
-        log("Added or updated default tier successfully")
+        let tierEnum: TopShotTiers.Tier = TopShotTiers.Tier(rawValue: tierRawValue) ?? panic("Invalid tier value")
+
+        self.adminRef.addOrUpdateDefaultTier(setID: setID, tier: tierEnum)
     }
 }

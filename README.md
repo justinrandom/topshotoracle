@@ -41,6 +41,13 @@ flow scripts execute ./tiers/scripts/getTier.cdc 2 11
 6. getAllBadges (account)
 flow scripts execute ./badges/scripts/getAllBadges.cdc 0xf8d6e0586b0a20c7
 
+## Tiers Admin Commands
+
+flow transactions send ./tiers/transactions/addOrUpdateDefaultTier.cdc
+flow transactions send ./tiers/transactions/addOrUpdateMixedTierSet.cdc
+flow transactions send ./tiers/transactions/removePlayIDFromMixedTierSet.cdc
+
+
 ## Set Tiers Reference
 
 1. Ultimate
