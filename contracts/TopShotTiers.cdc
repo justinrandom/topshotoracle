@@ -289,8 +289,6 @@ pub contract TopShotTiers {
 
     pub fun tierToString(tier: Tier): String {
         switch tier {
-        case Tier.unknown:
-            return "unknown"
         case Tier.ultimate:
             return "ultimate"
         case Tier.legendary:
@@ -306,7 +304,7 @@ pub contract TopShotTiers {
     }
 
     // Function to get the tier of an NFT based on setID and playID
-    pub fun getTier(setID: UInt64, playID: UInt64): Tier {
+    pub fun getTier(setID: UInt64, playID: UInt64): Tier? {
         if let mixedSet = self.mixedTierSets[setID] {
             if let tier = mixedSet[playID] {
                 return tier
@@ -315,6 +313,6 @@ pub contract TopShotTiers {
         if let tier = self.defaultTiers[setID] {
             return tier
         }
-        return Tier.unknown
+        return nil
     }
 }

@@ -47,6 +47,10 @@ flow transactions send ./tiers/transactions/addOrUpdateDefaultTier.cdc
 flow transactions send ./tiers/transactions/addOrUpdateMixedTierSet.cdc
 flow transactions send ./tiers/transactions/removePlayIDFromMixedTierSet.cdc
 
+## Useful Repos
+
+https://github.com/dapperlabs/nba-smart-contracts
+https://github.com/rrrkren/topshot-explorer
 
 ## Set Tiers Reference
 
