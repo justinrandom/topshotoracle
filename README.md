@@ -1,13 +1,15 @@
 # TopShot Badges and Tiers
 
-This project is designed to help find the tier and badges of NBA Top Shot moments on-chain. 
+This project is designed to help find the tier and badges of NBA Top Shot moments on-chain.
 
 ## Tiers Status
 
 Under review/testing. Will deploy to mainnet soon.
 
 ## Badges Status
+
 The following are implemented:
+
 - Rookie Mint
 - Rookie of the Year
 - MVP Year
@@ -15,6 +17,7 @@ The following are implemented:
 - Championship Year
 
 The following are in-progress:
+
 - Rookie Premiere
 - Top Shot Debut
 - Challenge Reward
@@ -24,22 +27,26 @@ The following are in-progress:
 ## Setup on Emulator
 
 1. Deploy TopShotLocking, TopShot, TopShotTiers, TopShotBadges
-flow project deploy
+   flow project deploy
 
 2. createSet (string)
-flow transactions send ./topshot/transactions/createSet.cdc "First Set!"
+   flow transactions send ./topshot/transactions/createSet.cdc "First Set!"
 
 3. createPlays
-flow transactions send ./topshot/transactions/createPlays.cdc
+   flow transactions send ./topshot/transactions/createPlays.cdc
 
 4. mintMoments
-flow transactions send ./topshot/transactions/mintMoments.cdc
+   flow transactions send ./topshot/transactions/mintMoments.cdc
 
 5. getTier (setId, playId)
-flow scripts execute ./tiers/scripts/getTier.cdc 2 11
+   flow scripts execute ./tiers/scripts/getTier.cdc 2 11
 
 6. getAllBadges (account)
-flow scripts execute ./badges/scripts/getAllBadges.cdc 0xf8d6e0586b0a20c7
+   flow scripts execute ./badges/scripts/getAllBadges.cdc 0xf8d6e0586b0a20c7
+
+7. flow transactions send .\topshot\transactions\setupCollection.cdc --signer=justin
+
+8. flow transactions send .\topshot\transactions\sendMoments.cdc 0x01cf0e2f2f715450 [1,2,3,4,5,6,7,8,9]
 
 ## Tiers Admin Commands
 
@@ -128,92 +135,88 @@ https://github.com/rrrkren/topshot-explorer
 72. Common
 73. Common
 74. Legendary 2648, 2649, 2837
-74. Rare 2650, 2651
-75. Rare
-76. Fandom
+75. Rare 2650, 2651
+76. Rare
 77. Fandom
 78. Fandom
-79. Rare
-80. Fandom
-81. Rare
-82. Legendary
-83. Rare
-84. Common
-85. Rare
-86. Fandom
+79. Fandom
+80. Rare
+81. Fandom
+82. Rare
+83. Legendary
+84. Rare
+85. Common
+86. Rare
 87. Fandom
 88. Fandom
-89. Rare
-90. Common
+89. Fandom
+90. Rare
 91. Common
 92. Common
-93. Rare
+93. Common
 94. Rare
 95. Rare
-96. Legendary
-97. Rare
-98. Common
-99. Rare
-100. Legendary 3345, 3919, 5304 
-100. Rare 4163, 5301
-101. Fandom
-102. Rare
-103. Legendary
-104. Common
-105. Common
-106. Legendary
-107. Fandom
-108. Common
-109. Legendary 3938, 5299 
-109. Rare 4162, 5300
-110. Legendary
-111. Common
-112. Rare
-113. Common
-114. Legendary 3938, 5299
-114. Rare 4162, 5300
+96. Rare
+97. Legendary
+98. Rare
+99. Common
+100. Rare
+101. Legendary 3345, 3919, 5304
+102. Rare 4163, 5301
+103. Fandom
+104. Rare
+105. Legendary
+106. Common
+107. Common
+108. Legendary
+109. Fandom
+110. Common
+111. Legendary 3938, 5299
+112. Rare 4162, 5300
+113. Legendary
+114. Common
 115. Rare
-116. Legendary
-117. Legendary 4126, 4128, 5305
-117. Rare 4124, 4125, 4127, 5306
-118. Legendary
-119. Common
-120. Rare
-121. Legendary
-122. Legendary
+116. Common
+117. Legendary 3938, 5299
+118. Rare 4162, 5300
+119. Rare
+120. Legendary
+121. Legendary 4126, 4128, 5305
+122. Rare 4124, 4125, 4127, 5306
 123. Legendary
 124. Common
-125. Common
-126. Common
-127. Rare
-128. Rare
+125. Rare
+126. Legendary
+127. Legendary
+128. Legendary
 129. Common
-130. Rare
-131. Legendary
-132. Common
-133. Common
-134. Rare
+130. Common
+131. Common
+132. Rare
+133. Rare
+134. Common
 135. Rare
-136. Rare
+136. Legendary
 137. Common
-138. Fandom
-139. Legendary
-140. Ultimate
-141. Fandom 5149, 5150, 5151, 5152, 5153, 5154, 5155, 5156, 5157, 5158, 5159, 5160, 5161, 5162, 5163, 5164, 5165, 5166, 5167, 5168, 5169, 5170, 5171, 5172, 5173, 5174, 5175, 5176, 5194, 5195, 5196, 5197
-141. Rare 5177, 5178, 5179, 5180, 5181, 5182, 5183, 5184, 5185, 5186, 5187, 5188, 5189, 5190, 5192, 5193
-142. Rare
+138. Common
+139. Rare
+140. Rare
+141. Rare
+142. Common
 143. Fandom
-144. Common
-145. Common
-146. Rare
-147. Legendary
+144. Legendary
+145. Ultimate
+146. Fandom 5149, 5150, 5151, 5152, 5153, 5154, 5155, 5156, 5157, 5158, 5159, 5160, 5161, 5162, 5163, 5164, 5165, 5166, 5167, 5168, 5169, 5170, 5171, 5172, 5173, 5174, 5175, 5176, 5194, 5195, 5196, 5197
+147. Rare 5177, 5178, 5179, 5180, 5181, 5182, 5183, 5184, 5185, 5186, 5187, 5188, 5189, 5190, 5192, 5193
 148. Rare
-149. Rare
-150. Rare
-151. Ultimate
+149. Fandom
+150. Common
+151. Common
 152. Rare
 153. Legendary
-
-
-
-
+154. Rare
+155. Rare
+156. Rare
+157. Ultimate
+158. Rare
+159. Legendary
