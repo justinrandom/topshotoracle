@@ -1,11 +1,13 @@
-import TopShot from 0xf8d6e0586b0a20c7
-import TopShotBadges from 0xf8d6e0586b0a20c7
+import "TopShot"
+import "TopShotBadges"
 
-pub fun main(account: Address): {UInt64: [String]} {
+access(all) fun main(account: Address): {UInt64: [String]} {
     let badgeResults: {UInt64: [String]} = {}
 
     // Get the user's moment collection
-    let collectionRef = getAccount(account).getCapability(/public/MomentCollection)!.borrow<&{TopShot.MomentCollectionPublic}>()
+    let collectionRef = getAccount(account)
+        .capabilities.get<&{TopShot.MomentCollectionPublic}>(/public/MomentCollection)
+        .borrow()
         ?? panic("Could not borrow capability from public collection")
 
     // Get all moment IDs in the user's collection

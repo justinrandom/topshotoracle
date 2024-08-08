@@ -1,4 +1,4 @@
-import TopShot from 0x0b2a3299cc857e29
+import "TopShot"
 
 // This script returns a dictionary of set IDs to arrays of play IDs
 

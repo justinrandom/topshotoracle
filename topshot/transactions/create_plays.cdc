@@ -1,13 +1,24 @@
-import TopShot from 0xf8d6e0586b0a20c7
+import "TopShot"
 
 transaction {
-    prepare(signer: AuthAccount) {
-        // Get a reference to the admin resource
-        let adminRef = signer.borrow<&TopShot.Admin>(from: /storage/TopShotAdmin)
-            ?? panic("Could not borrow a reference to the Admin resource")
+
+     // Local variable for the topshot Admin object
+    let adminRef: &TopShot.Admin
+    let currPlayID: UInt32
+
+    let playMetadataList: [{String: String}]
+
+    prepare(acct: auth(BorrowValue) &Account) {
+
+        // borrow a reference to the admin resource
+        self.currPlayID = TopShot.nextPlayID;
+
+        // borrow a reference to the admin resource
+        self.adminRef = acct.storage.borrow<&TopShot.Admin>(from: /storage/TopShotAdmin)
+            ?? panic("No admin resource in storage")
 
         // Create play metadata
-        let playMetadataList = [
+        self.playMetadataList = [
             // Larry Bird (1979-80, MVP Year)
             {
                 "FirstName": "Larry",
@@ -531,14 +542,12 @@ transaction {
                 "PrimaryPosition": "SF"
             }
         ]
+    }
 
-        // Create new plays and add them to the existing set with setID 1
-        let setID: UInt32 = 1 // Existing set ID
-        let setRef = adminRef.borrowSet(setID: setID)
-
-        for playMetadata in playMetadataList {
-            let playID = adminRef.createPlay(metadata: playMetadata)
-            setRef.addPlay(playID: playID)
+    execute {
+        for metadata in self.playMetadataList {
+            self.adminRef.createPlay(metadata: metadata)
         }
     }
+
 }

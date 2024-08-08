@@ -1,4 +1,4 @@
-import TopShot from 0x0b2a3299cc857e29
+import "TopShot"
 
 pub struct PlayMetadata {
     pub let playID: UInt32

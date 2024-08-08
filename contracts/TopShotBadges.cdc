@@ -1,12 +1,15 @@
-import TopShot from 0xf8d6e0586b0a20c7
+import "TopShot"
 
-pub contract TopShotBadges {
+access(all)
+contract TopShotBadges {
 
     // Resource to manage the badge mappings
-    pub resource Admin {
+    access(all)
+    resource Admin {
 
         // Function to check if a moment has the "Rookie of the Year" badge
-        pub fun hasRookieOfTheYearBadge(playMetadata: {String: String}): Bool {
+        access(all)
+        fun hasRookieOfTheYearBadge(playMetadata: {String: String}): Bool {
             let firstName = playMetadata["FirstName"] ?? ""
             let lastName = playMetadata["LastName"] ?? ""
             let nbaSeason = playMetadata["NbaSeason"] ?? ""
@@ -98,7 +101,8 @@ pub contract TopShotBadges {
         }
 
         // Function to check if a moment has the "Rookie Year" badge
-        pub fun hasRookieYearBadge(playMetadata: {String: String}): Bool {
+        access(all)
+        fun hasRookieYearBadge(playMetadata: {String: String}): Bool {
             let totalYearsExperience = playMetadata["TotalYearsExperience"] ?? ""
             if totalYearsExperience == "0" {
                 return true
@@ -107,7 +111,8 @@ pub contract TopShotBadges {
         }
 
         // Function to check if a moment has the "Rookie Mint" badge
-        pub fun hasRookieMintBadge(playMetadata: {String: String}, setID: UInt32): Bool {
+        access(all)
+        fun hasRookieMintBadge(playMetadata: {String: String}, setID: UInt32): Bool {
             let totalYearsExperience = playMetadata["TotalYearsExperience"] ?? ""
             let nbaSeason = playMetadata["NbaSeason"] ?? ""
 
@@ -132,102 +137,104 @@ pub contract TopShotBadges {
         }
 
         // Function to check if a moment has the "Championship Year" badge
-pub fun hasChampionshipYearBadge(playMetadata: {String: String}): Bool {
-    let nbaSeason = playMetadata["NbaSeason"] ?? ""
-    let teamAtMoment = playMetadata["TeamAtMoment"] ?? ""
+        access(all)
+        fun hasChampionshipYearBadge(playMetadata: {String: String}): Bool {
+            let nbaSeason = playMetadata["NbaSeason"] ?? ""
+            let teamAtMoment = playMetadata["TeamAtMoment"] ?? ""
 
-    let championshipData: {String: [String]} = {
-        "1946-47": ["Philadelphia Warriors"],
-        "1947-48": ["Baltimore Bullets"],
-        "1948-49": ["Minneapolis Lakers"],
-        "1949-50": ["Minneapolis Lakers"],
-        "1950-51": ["Rochester Royals"],
-        "1951-52": ["Minneapolis Lakers"],
-        "1952-53": ["Minneapolis Lakers"],
-        "1953-54": ["Minneapolis Lakers"],
-        "1954-55": ["Syracuse Nationals"],
-        "1955-56": ["Philadelphia Warriors"],
-        "1956-57": ["Boston Celtics"],
-        "1957-58": ["St. Louis Hawks"],
-        "1958-59": ["Boston Celtics"],
-        "1959-60": ["Boston Celtics"],
-        "1960-61": ["Boston Celtics"],
-        "1961-62": ["Boston Celtics"],
-        "1962-63": ["Boston Celtics"],
-        "1963-64": ["Boston Celtics"],
-        "1964-65": ["Boston Celtics"],
-        "1965-66": ["Boston Celtics"],
-        "1966-67": ["Philadelphia 76ers"],
-        "1967-68": ["Boston Celtics"],
-        "1968-69": ["Boston Celtics"],
-        "1969-70": ["New York Knicks"],
-        "1970-71": ["Milwaukee Bucks"],
-        "1971-72": ["Los Angeles Lakers"],
-        "1972-73": ["New York Knicks"],
-        "1973-74": ["Boston Celtics"],
-        "1974-75": ["Golden State Warriors"],
-        "1975-76": ["Boston Celtics"],
-        "1976-77": ["Portland Trail Blazers"],
-        "1977-78": ["Washington Bullets"],
-        "1978-79": ["Seattle SuperSonics"],
-        "1979-80": ["Los Angeles Lakers"],
-        "1980-81": ["Boston Celtics"],
-        "1981-82": ["Los Angeles Lakers"],
-        "1982-83": ["Philadelphia 76ers"],
-        "1983-84": ["Boston Celtics"],
-        "1984-85": ["Los Angeles Lakers"],
-        "1985-86": ["Boston Celtics"],
-        "1986-87": ["Los Angeles Lakers"],
-        "1987-88": ["Los Angeles Lakers"],
-        "1988-89": ["Detroit Pistons"],
-        "1989-90": ["Detroit Pistons"],
-        "1990-91": ["Chicago Bulls"],
-        "1991-92": ["Chicago Bulls"],
-        "1992-93": ["Chicago Bulls"],
-        "1993-94": ["Houston Rockets"],
-        "1994-95": ["Houston Rockets"],
-        "1995-96": ["Chicago Bulls"],
-        "1996-97": ["Chicago Bulls"],
-        "1997-98": ["Chicago Bulls"],
-        "1998-99": ["San Antonio Spurs"],
-        "1999-00": ["Los Angeles Lakers"],
-        "2000-01": ["Los Angeles Lakers"],
-        "2001-02": ["Los Angeles Lakers"],
-        "2002-03": ["San Antonio Spurs"],
-        "2003-04": ["Detroit Pistons"],
-        "2004-05": ["San Antonio Spurs"],
-        "2005-06": ["Miami Heat"],
-        "2006-07": ["San Antonio Spurs"],
-        "2007-08": ["Boston Celtics"],
-        "2008-09": ["Los Angeles Lakers"],
-        "2009-10": ["Los Angeles Lakers"],
-        "2010-11": ["Dallas Mavericks"],
-        "2011-12": ["Miami Heat"],
-        "2012-13": ["Miami Heat"],
-        "2013-14": ["San Antonio Spurs"],
-        "2014-15": ["Golden State Warriors"],
-        "2015-16": ["Cleveland Cavaliers"],
-        "2016-17": ["Golden State Warriors"],
-        "2017-18": ["Golden State Warriors"],
-        "2018-19": ["Toronto Raptors"],
-        "2019-20": ["Los Angeles Lakers"],
-        "2020-21": ["Milwaukee Bucks"],
-        "2021-22": ["Golden State Warriors"],
-        "2022-23": ["Denver Nuggets"],
-        "2023-24": ["Boston Celtics"]
-    }
+            let championshipData: {String: [String]} = {
+                "1946-47": ["Philadelphia Warriors"],
+                "1947-48": ["Baltimore Bullets"],
+                "1948-49": ["Minneapolis Lakers"],
+                "1949-50": ["Minneapolis Lakers"],
+                "1950-51": ["Rochester Royals"],
+                "1951-52": ["Minneapolis Lakers"],
+                "1952-53": ["Minneapolis Lakers"],
+                "1953-54": ["Minneapolis Lakers"],
+                "1954-55": ["Syracuse Nationals"],
+                "1955-56": ["Philadelphia Warriors"],
+                "1956-57": ["Boston Celtics"],
+                "1957-58": ["St. Louis Hawks"],
+                "1958-59": ["Boston Celtics"],
+                "1959-60": ["Boston Celtics"],
+                "1960-61": ["Boston Celtics"],
+                "1961-62": ["Boston Celtics"],
+                "1962-63": ["Boston Celtics"],
+                "1963-64": ["Boston Celtics"],
+                "1964-65": ["Boston Celtics"],
+                "1965-66": ["Boston Celtics"],
+                "1966-67": ["Philadelphia 76ers"],
+                "1967-68": ["Boston Celtics"],
+                "1968-69": ["Boston Celtics"],
+                "1969-70": ["New York Knicks"],
+                "1970-71": ["Milwaukee Bucks"],
+                "1971-72": ["Los Angeles Lakers"],
+                "1972-73": ["New York Knicks"],
+                "1973-74": ["Boston Celtics"],
+                "1974-75": ["Golden State Warriors"],
+                "1975-76": ["Boston Celtics"],
+                "1976-77": ["Portland Trail Blazers"],
+                "1977-78": ["Washington Bullets"],
+                "1978-79": ["Seattle SuperSonics"],
+                "1979-80": ["Los Angeles Lakers"],
+                "1980-81": ["Boston Celtics"],
+                "1981-82": ["Los Angeles Lakers"],
+                "1982-83": ["Philadelphia 76ers"],
+                "1983-84": ["Boston Celtics"],
+                "1984-85": ["Los Angeles Lakers"],
+                "1985-86": ["Boston Celtics"],
+                "1986-87": ["Los Angeles Lakers"],
+                "1987-88": ["Los Angeles Lakers"],
+                "1988-89": ["Detroit Pistons"],
+                "1989-90": ["Detroit Pistons"],
+                "1990-91": ["Chicago Bulls"],
+                "1991-92": ["Chicago Bulls"],
+                "1992-93": ["Chicago Bulls"],
+                "1993-94": ["Houston Rockets"],
+                "1994-95": ["Houston Rockets"],
+                "1995-96": ["Chicago Bulls"],
+                "1996-97": ["Chicago Bulls"],
+                "1997-98": ["Chicago Bulls"],
+                "1998-99": ["San Antonio Spurs"],
+                "1999-00": ["Los Angeles Lakers"],
+                "2000-01": ["Los Angeles Lakers"],
+                "2001-02": ["Los Angeles Lakers"],
+                "2002-03": ["San Antonio Spurs"],
+                "2003-04": ["Detroit Pistons"],
+                "2004-05": ["San Antonio Spurs"],
+                "2005-06": ["Miami Heat"],
+                "2006-07": ["San Antonio Spurs"],
+                "2007-08": ["Boston Celtics"],
+                "2008-09": ["Los Angeles Lakers"],
+                "2009-10": ["Los Angeles Lakers"],
+                "2010-11": ["Dallas Mavericks"],
+                "2011-12": ["Miami Heat"],
+                "2012-13": ["Miami Heat"],
+                "2013-14": ["San Antonio Spurs"],
+                "2014-15": ["Golden State Warriors"],
+                "2015-16": ["Cleveland Cavaliers"],
+                "2016-17": ["Golden State Warriors"],
+                "2017-18": ["Golden State Warriors"],
+                "2018-19": ["Toronto Raptors"],
+                "2019-20": ["Los Angeles Lakers"],
+                "2020-21": ["Milwaukee Bucks"],
+                "2021-22": ["Golden State Warriors"],
+                "2022-23": ["Denver Nuggets"],
+                "2023-24": ["Boston Celtics"]
+            }
 
-    if let champions = championshipData[nbaSeason] {
-        if champions.contains(teamAtMoment) {
-            return true
+            if let champions = championshipData[nbaSeason] {
+                if champions.contains(teamAtMoment) {
+                    return true
+                }
+            }
+
+            return false
         }
-    }
-
-    return false
-}
 
         // Function to check if a moment has the "MVP Year" badge
-        pub fun hasMVPYearBadge(playMetadata: {String: String}): Bool {
+        access(all)
+        fun hasMVPYearBadge(playMetadata: {String: String}): Bool {
             let firstName = playMetadata["FirstName"] ?? ""
             let lastName = playMetadata["LastName"] ?? ""
             let nbaSeason = playMetadata["NbaSeason"] ?? ""
@@ -316,7 +323,8 @@ pub fun hasChampionshipYearBadge(playMetadata: {String: String}): Bool {
         }
 
         // Function to get all badges for a given moment
-        pub fun getBadges(playMetadata: {String: String}, setID: UInt32): [String] {
+        access(all)
+        fun getBadges(playMetadata: {String: String}, setID: UInt32): [String] {
             var badges: [String] = []
 
             if self.hasRookieOfTheYearBadge(playMetadata: playMetadata) {
@@ -336,7 +344,6 @@ pub fun hasChampionshipYearBadge(playMetadata: {String: String}): Bool {
                 badges.append("Championship Year")
             }
 
-
             // Add other badge checks here
 
             return badges
@@ -344,13 +351,17 @@ pub fun hasChampionshipYearBadge(playMetadata: {String: String}): Bool {
     }
 
     init() {
-        self.account.save(<-create Admin(), to: /storage/TopShotBadgesAdmin)
-        self.account.link<&Admin>(/public/TopShotBadgesAdmin, target: /storage/TopShotBadgesAdmin)
+        self.account.storage.save(<-create Admin(), to: /storage/TopShotBadgesAdmin)
+        let cap = self.account.capabilities.storage.issue<&TopShotBadges.Admin>(/storage/TopShotBadgesAdmin)
+        self.account.capabilities.publish(cap, at: /public/TopShotBadgesAdmin)
     }
 
     // Function to get the badges of an NBA Top Shot moment
-    pub fun getMomentBadges(account: Address, momentID: UInt64): [String] {
-        let collectionRef = getAccount(account).getCapability(/public/MomentCollection)!.borrow<&{TopShot.MomentCollectionPublic}>()
+    access(all)
+    fun getMomentBadges(account: Address, momentID: UInt64): [String] {
+        let collectionRef = getAccount(account)
+            .capabilities.get<&{TopShot.MomentCollectionPublic}>(/public/MomentCollection)
+            .borrow()
             ?? panic("Could not borrow capability from public collection")
 
         let momentRef = collectionRef.borrowMoment(id: momentID)
@@ -359,7 +370,9 @@ pub fun hasChampionshipYearBadge(playMetadata: {String: String}): Bool {
         let playMetadata = TopShot.getPlayMetaData(playID: momentRef.data.playID) ?? panic("Play doesn't exist")
         let setID = momentRef.data.setID
 
-        let adminRef = getAccount(self.account.address).getCapability(/public/TopShotBadgesAdmin)!.borrow<&TopShotBadges.Admin>()
+        let adminRef = getAccount(self.account.address)
+            .capabilities.get<&TopShotBadges.Admin>(/public/TopShotBadgesAdmin)
+            .borrow()
             ?? panic("Could not borrow a reference to the Admin resource")
 
         return adminRef.getBadges(playMetadata: playMetadata, setID: setID)

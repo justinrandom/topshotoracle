@@ -27,16 +27,16 @@ The following are in-progress:
 ## Setup on Emulator
 
 1. Deploy TopShotLocking, TopShot, TopShotTiers, TopShotBadges
-   flow project deploy
+   flow-c1 project deploy
 
-2. createSet (string)
-   flow transactions send ./topshot/transactions/createSet.cdc "First Set!"
+2. create_set (string)
+   flow-c1 transactions send ./topshot/transactions/create_set.cdc "First Set!"
 
-3. createPlays
-   flow transactions send ./topshot/transactions/createPlays.cdc
+3. create_plays (metadata found inside transaction)
+   flow-c1 transactions send ./topshot/transactions/create_plays.cdc
 
-4. mintMoments
-   flow transactions send ./topshot/transactions/mintMoments.cdc
+4. mint_moment
+   flow-c1 transactions send ./topshot/transactions/mint_moment.cdc
 
 5. getTier (setId, playId)
    flow scripts execute ./tiers/scripts/getTier.cdc 2 11
@@ -44,9 +44,15 @@ The following are in-progress:
 6. getAllBadges (account)
    flow scripts execute ./badges/scripts/getAllBadges.cdc 0xf8d6e0586b0a20c7
 
-7. flow transactions send .\topshot\transactions\setupCollection.cdc --signer=justin
+7. flow accounts create
 
-8. flow transactions send .\topshot\transactions\sendMoments.cdc 0x01cf0e2f2f715450 [1,2,3,4,5,6,7,8,9]
+8. flow transactions send .\topshot\transactions\setupCollection.cdc --signer=justin
+
+9. flow transactions send .\topshot\transactions\sendMoments.cdc 0x01cf0e2f2f715450 [1,2,3,4,5]
+
+10. setupVault
+
+11. mintTSHOT
 
 ## Tiers Admin Commands
 
@@ -220,3 +226,25 @@ https://github.com/rrrkren/topshot-explorer
 157. Ultimate
 158. Rare
 159. Legendary
+
+TSHOT
+
+My goal is to create a $TSHOT fungible token on the flow blockchain. Users are able to exchange 1 NBA Top Shot NFT for 1 $TSHOT. I also want the user to be able to exchange 1 $TSHOT back for 1 NBA Top Shot NFT.
+
+I'd like to adhere to best practices for security and design.
+
+Although not absolutely necessary, I'd prefer if the admin was the one that minted $TSHOT.
+
+I'd also prefer if there was the exchange contract was called TopShotExchange.
+
+I am trying to determine ways this system can be designed, and what mechanics of Cadence can be leveraged to allow this to happen.
+
+I'd also prefer if the exchange could happen in a single transaction initiated by the user.
+
+When a user exchanges an NFT for a fungible token, I am unsure how we can automatically have the contract send or mint the token for the user. I think perhaps when the user sends the NFT to the contract, the admin verifies that it is a Top shot NFT, and then the admin mints the TSHOT coin and sends it to the user.
+
+To-Do
+
+Tiers
+-Test update_mixed_tier
+-Test remove_play_id_from_mixed_tier_set

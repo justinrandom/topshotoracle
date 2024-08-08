@@ -1,27 +1,45 @@
-pub contract TopShotTiers {
+import "TopShot"
 
-    pub enum Tier: UInt8 {
-        pub case common
-        pub case fandom
-        pub case rare
-        pub case legendary
-        pub case ultimate
+access(all)
+contract TopShotTiers {
+
+    // 0=common, 1=fandom, 2=rare, 3=legendary, 4=ultimate
+    access(all)
+    enum Tier: UInt8 {
+        access(all)
+        case common
+        access(all)
+        case fandom
+        access(all)
+        case rare
+        access(all)
+        case legendary
+        access(all)
+        case ultimate
     }
 
     // Define the mixed-tier sets with their play IDs and corresponding tiers
-    pub var mixedTierSets: {UInt64: {UInt64: Tier}}
+    access(all)
+    var mixedTierSets: {UInt32: {UInt32: Tier}}
     // Define default tiers based on set IDs
-    pub var defaultTiers: {UInt64: Tier}
+    access(all)
+    var defaultTiers: {UInt32: Tier}
 
-    pub resource interface AdminPublic {
-        pub fun addOrUpdateMixedTierSet(setID: UInt64, playID: UInt64, tier: Tier)
-        pub fun addOrUpdateDefaultTier(setID: UInt64, tier: Tier)
-        pub fun removePlayIDFromMixedTierSet(setID: UInt64, playID: UInt64)
+    access(all)
+    resource interface AdminPublic {
+        access(all)
+        fun addOrUpdateMixedTierSet(setID: UInt32, playID: UInt32, tier: Tier)
+        access(all)
+        fun addOrUpdateDefaultTier(setID: UInt32, tier: Tier)
+        access(all)
+        fun removePlayIDFromMixedTierSet(setID: UInt32, playID: UInt32)
     }
 
     // Resource to manage the tier mappings
-    pub resource Admin: AdminPublic {
-        pub fun addOrUpdateMixedTierSet(setID: UInt64, playID: UInt64, tier: Tier) {
+    access(all)
+    resource Admin: AdminPublic {
+        access(all)
+        fun addOrUpdateMixedTierSet(setID: UInt32, playID: UInt32, tier: Tier) {
             if let existingSet = TopShotTiers.mixedTierSets[setID] {
                 var updatedSet = existingSet
                 updatedSet[playID] = tier
@@ -31,7 +49,8 @@ pub contract TopShotTiers {
             }
         }
 
-        pub fun removePlayIDFromMixedTierSet(setID: UInt64, playID: UInt64) {
+        access(all)
+        fun removePlayIDFromMixedTierSet(setID: UInt32, playID: UInt32) {
             if let existingSet = TopShotTiers.mixedTierSets[setID] {
                 var updatedSet = existingSet
                 updatedSet.remove(key: playID)
@@ -39,7 +58,8 @@ pub contract TopShotTiers {
             }
         }
 
-        pub fun addOrUpdateDefaultTier(setID: UInt64, tier: Tier) {
+        access(all)
+        fun addOrUpdateDefaultTier(setID: UInt32, tier: Tier) {
             TopShotTiers.defaultTiers[setID] = tier
         }
     }
@@ -283,11 +303,15 @@ pub contract TopShotTiers {
             153: Tier.legendary
         }
 
-        self.account.save(<-create Admin(), to: /storage/TopShotTiersAdmin)
-        self.account.link<&Admin{AdminPublic}>(/public/TopShotTiersAdmin, target: /storage/TopShotTiersAdmin)
+        self.account.storage.save<@Admin>(<-create Admin(), to: /storage/TopShotTiersAdmin)
+        let cap = self.account.capabilities.storage.issue<&TopShotTiers.Admin>(/storage/TopShotTiersAdmin)
+        self.account.capabilities.publish(cap, at: /public/TopShotTiersAdmin)
+
+
     }
 
-    pub fun tierToString(tier: Tier): String {
+    access(all)
+    fun tierToString(tier: Tier): String {
         switch tier {
         case Tier.ultimate:
             return "ultimate"
@@ -303,8 +327,12 @@ pub contract TopShotTiers {
         return "unknown" // Default return to handle all cases
     }
 
-    // Function to get the tier of an NFT based on setID and playID
-    pub fun getTier(setID: UInt64, playID: UInt64): Tier? {
+    // Function to get the tier of a TopShot moment based on its setID and playID
+    access(all)
+    fun getTier(nft: &TopShot.NFT): Tier? {
+        let setID = nft.data.setID
+        let playID = nft.data.playID
+
         if let mixedSet = self.mixedTierSets[setID] {
             if let tier = mixedSet[playID] {
                 return tier

@@ -1,4 +1,4 @@
-import TopShot from 0x0b2a3299cc857e29
+import "TopShot"
 
 // This script returns an array of the play IDs that are
 // in the specified set
@@ -10,7 +10,7 @@ import TopShot from 0x0b2a3299cc857e29
 // Returns: [UInt32]
 // Array of play IDs in specified set
 
-pub fun main(setID: UInt32): [UInt32] {
+access(all) fun main(setID: UInt32): [UInt32] {
 
     let plays = TopShot.getPlaysInSet(setID: setID)!
 

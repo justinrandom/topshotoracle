@@ -1,5 +1,5 @@
-import TopShot from 0x0b2a3299cc857e29
-import MetadataViews from 0x1d7e57aa55817448
+import "TopShot"
+import "MetadataViews"
 
 pub fun main(account: Address, id: UInt64): {String: AnyStruct} {
 
@@ -21,16 +21,10 @@ pub fun main(account: Address, id: UInt64): {String: AnyStruct} {
     // Use the moment's set ID to get the set metadata
     let setMetadata = TopShot.getSetData(setID: data.setID)?.name ?? panic("Set doesn't exist")
 
-    // Fetch editions metadata if available
-    let editionsView: MetadataViews.Editions? = token.getViews().contains(Type<MetadataViews.Editions>())
-        ? token.resolveView(Type<MetadataViews.Editions>()) as? MetadataViews.Editions
-        : nil
-
     // Prepare the result dictionary
     let metadataResult: {String: AnyStruct} = {
         "playMetadata": playMetadata,
-        "setMetadata": setMetadata,
-        "editionsMetadata": editionsView ?? "No Editions Metadata"
+        "setMetadata": setMetadata
     }
 
     return metadataResult

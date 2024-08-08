@@ -1,4 +1,4 @@
-import TopShot from 0xf8d6e0586b0a20c7
+import "TopShot"
 
 pub fun main(account: Address, momentID: UInt64): TopShot.MomentData {
     let collectionRef = getAccount(account).getCapability(/public/MomentCollection)!.borrow<&{TopShot.MomentCollectionPublic}>()
